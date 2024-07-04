@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch File</title>
+</head>
+
+<body>
+    <h1>Fetch File Example</h1>
+    <button id="fetchButton">Fetch and Download File</button>
+
+    <script>
+        document.getElementById('fetchButton').addEventListener('click', fetchFile);
+
+        async function fetchFile() {
+            const url = 'https://graffity-console-ap-southeast-1.s3.ap-southeast-1.amazonaws.com/ar_contents/prod/630ed0826d28aa4973c35256/c3065221-fd3c-47ad-a92a-1a431ebf74a3.usdz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXLNL2BAYGHFPWVPY%2F20240704%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240704T063426Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&x-id=GetObject&X-Amz-Signature=def1a4ca67eb4f5dc31664b29d2b3ce9648c511d02489701adfae16f54e1276c';
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const blob = await response.blob();
+                // Do something with the fetched file blob, like creating a URL or downloading
+                const objectURL = URL.createObjectURL(blob);
+                console.log('File fetched successfully:', objectURL);
+
+                // For example, to download the file, you can create a link and click it programmatically
+                const link = document.createElement('a');
+                link.href = objectURL;
+                link.download = 'filename.usdz'; // Set the desired file name here
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+            } catch (error) {
+                console.error('Error fetching the file:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>

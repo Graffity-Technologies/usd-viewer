@@ -8,10 +8,10 @@ var getUsdModule = ((args) => {
     // module overrides can be supplied here
     locateFile: (path, prefix) => {
       if (!prefix && _scriptDir) prefix = _scriptDir.substr(0, _scriptDir.lastIndexOf('/') + 1);
-      return prefix + path; 
+      return prefix + path;
     },
     ...args
-}) {
+  }) {
     function GROWABLE_HEAP_I8() {
       if (wasmMemory.buffer != HEAP8.buffer) {
         updateMemoryViews();
@@ -91,7 +91,7 @@ var getUsdModule = ((args) => {
             location.pathname
               .toString()
               .substring(0, location.pathname.toString().lastIndexOf("/")) +
-              "/",
+            "/",
           );
         }
         var PACKAGE_NAME = "emHdBindings.data";
@@ -190,9 +190,9 @@ var getUsdModule = ((args) => {
         var fetchedCallback = null;
         var fetched = Module["getPreloadedPackage"]
           ? Module["getPreloadedPackage"](
-              REMOTE_PACKAGE_NAME,
-              REMOTE_PACKAGE_SIZE,
-            )
+            REMOTE_PACKAGE_NAME,
+            REMOTE_PACKAGE_SIZE,
+          )
           : null;
         if (!fetched)
           fetchRemotePackage(
@@ -808,10 +808,10 @@ var getUsdModule = ((args) => {
     assert(
       INITIAL_MEMORY >= 5242880,
       "INITIAL_MEMORY should be larger than STACK_SIZE, was " +
-        INITIAL_MEMORY +
-        "! (STACK_SIZE=" +
-        5242880 +
-        ")",
+      INITIAL_MEMORY +
+      "! (STACK_SIZE=" +
+      5242880 +
+      ")",
     );
     if (ENVIRONMENT_IS_PTHREAD) {
       wasmMemory = Module["wasmMemory"];
@@ -1032,7 +1032,10 @@ var getUsdModule = ((args) => {
     function __asyncjs__fetch_asset(route, dataPtr) {
       return Asyncify.handleAsync(async () => {
         const routeString = UTF8ToString(route);
+        console.log("routeString", routeString);
+
         const absoluteUrl = new URL(routeString);
+        console.log("absoluteUrl", absoluteUrl);
         try {
           const response = await fetch(absoluteUrl);
           if (!response.ok)
@@ -1051,6 +1054,7 @@ var getUsdModule = ((args) => {
       });
     }
     function addToLoadedFiles(path) {
+      console.log("addToLoadedFiles path", path);
       if (typeof self !== "undefined") {
         if (typeof self.loadedFiles === "undefined") {
           self.loadedFiles = [];
@@ -1061,6 +1065,9 @@ var getUsdModule = ((args) => {
       self.loadedFiles.push(UTF8ToString(path));
     }
     function downloadJS(data, filenamedata) {
+      console.log("downloadJS data", data);
+      console.log("downloadJS filenamedata", filenamedata);
+
       const text = UTF8ToString(data);
       const filename = UTF8ToString(filenamedata);
       let element = document.createElement("a");
@@ -1081,7 +1088,7 @@ var getUsdModule = ((args) => {
     }
     var terminateWorker = (worker) => {
       worker.terminate();
-      worker.onmessage = (e) => {};
+      worker.onmessage = (e) => { };
     };
     var killThread = (pthread_ptr) => {
       var worker = PThread.pthreads[pthread_ptr];
@@ -1636,7 +1643,7 @@ var getUsdModule = ((args) => {
           newCapacity,
           (prevCapacity *
             (prevCapacity < CAPACITY_DOUBLING_MAX ? 2 : 1.125)) >>>
-            0,
+          0,
         );
         if (prevCapacity != 0) newCapacity = Math.max(newCapacity, 256);
         var oldContents = node.contents;
@@ -3278,10 +3285,10 @@ var getUsdModule = ((args) => {
               if (from > to)
                 throw new Error(
                   "invalid range (" +
-                    from +
-                    ", " +
-                    to +
-                    ") or no bytes requested!",
+                  from +
+                  ", " +
+                  to +
+                  ") or no bytes requested!",
                 );
               if (to > datalength - 1)
                 throw new Error(
@@ -3461,13 +3468,13 @@ var getUsdModule = ((args) => {
         (tempI64 = [
           stat.size >>> 0,
           ((tempDouble = stat.size),
-          +Math.abs(tempDouble) >= 1
-            ? tempDouble > 0
-              ? +Math.floor(tempDouble / 4294967296) >>> 0
-              : ~~+Math.ceil(
+            +Math.abs(tempDouble) >= 1
+              ? tempDouble > 0
+                ? +Math.floor(tempDouble / 4294967296) >>> 0
+                : ~~+Math.ceil(
                   (tempDouble - +(~~tempDouble >>> 0)) / 4294967296,
                 ) >>> 0
-            : 0),
+              : 0),
         ]),
           (GROWABLE_HEAP_I32()[((buf + 24) >>> 2) >>> 0] = tempI64[0]),
           (GROWABLE_HEAP_I32()[((buf + 28) >>> 2) >>> 0] = tempI64[1]);
@@ -3479,13 +3486,13 @@ var getUsdModule = ((args) => {
         (tempI64 = [
           Math.floor(atime / 1e3) >>> 0,
           ((tempDouble = Math.floor(atime / 1e3)),
-          +Math.abs(tempDouble) >= 1
-            ? tempDouble > 0
-              ? +Math.floor(tempDouble / 4294967296) >>> 0
-              : ~~+Math.ceil(
+            +Math.abs(tempDouble) >= 1
+              ? tempDouble > 0
+                ? +Math.floor(tempDouble / 4294967296) >>> 0
+                : ~~+Math.ceil(
                   (tempDouble - +(~~tempDouble >>> 0)) / 4294967296,
                 ) >>> 0
-            : 0),
+              : 0),
         ]),
           (GROWABLE_HEAP_I32()[((buf + 40) >>> 2) >>> 0] = tempI64[0]),
           (GROWABLE_HEAP_I32()[((buf + 44) >>> 2) >>> 0] = tempI64[1]);
@@ -3493,13 +3500,13 @@ var getUsdModule = ((args) => {
         (tempI64 = [
           Math.floor(mtime / 1e3) >>> 0,
           ((tempDouble = Math.floor(mtime / 1e3)),
-          +Math.abs(tempDouble) >= 1
-            ? tempDouble > 0
-              ? +Math.floor(tempDouble / 4294967296) >>> 0
-              : ~~+Math.ceil(
+            +Math.abs(tempDouble) >= 1
+              ? tempDouble > 0
+                ? +Math.floor(tempDouble / 4294967296) >>> 0
+                : ~~+Math.ceil(
                   (tempDouble - +(~~tempDouble >>> 0)) / 4294967296,
                 ) >>> 0
-            : 0),
+              : 0),
         ]),
           (GROWABLE_HEAP_I32()[((buf + 56) >>> 2) >>> 0] = tempI64[0]),
           (GROWABLE_HEAP_I32()[((buf + 60) >>> 2) >>> 0] = tempI64[1]);
@@ -3507,13 +3514,13 @@ var getUsdModule = ((args) => {
         (tempI64 = [
           Math.floor(ctime / 1e3) >>> 0,
           ((tempDouble = Math.floor(ctime / 1e3)),
-          +Math.abs(tempDouble) >= 1
-            ? tempDouble > 0
-              ? +Math.floor(tempDouble / 4294967296) >>> 0
-              : ~~+Math.ceil(
+            +Math.abs(tempDouble) >= 1
+              ? tempDouble > 0
+                ? +Math.floor(tempDouble / 4294967296) >>> 0
+                : ~~+Math.ceil(
                   (tempDouble - +(~~tempDouble >>> 0)) / 4294967296,
                 ) >>> 0
-            : 0),
+              : 0),
         ]),
           (GROWABLE_HEAP_I32()[((buf + 72) >>> 2) >>> 0] = tempI64[0]),
           (GROWABLE_HEAP_I32()[((buf + 76) >>> 2) >>> 0] = tempI64[1]);
@@ -3521,13 +3528,13 @@ var getUsdModule = ((args) => {
         (tempI64 = [
           stat.ino >>> 0,
           ((tempDouble = stat.ino),
-          +Math.abs(tempDouble) >= 1
-            ? tempDouble > 0
-              ? +Math.floor(tempDouble / 4294967296) >>> 0
-              : ~~+Math.ceil(
+            +Math.abs(tempDouble) >= 1
+              ? tempDouble > 0
+                ? +Math.floor(tempDouble / 4294967296) >>> 0
+                : ~~+Math.ceil(
                   (tempDouble - +(~~tempDouble >>> 0)) / 4294967296,
                 ) >>> 0
-            : 0),
+              : 0),
         ]),
           (GROWABLE_HEAP_I32()[((buf + 88) >>> 2) >>> 0] = tempI64[0]),
           (GROWABLE_HEAP_I32()[((buf + 92) >>> 2) >>> 0] = tempI64[1]);
@@ -4164,26 +4171,26 @@ var getUsdModule = ((args) => {
           (tempI64 = [
             id >>> 0,
             ((tempDouble = id),
-            +Math.abs(tempDouble) >= 1
-              ? tempDouble > 0
-                ? +Math.floor(tempDouble / 4294967296) >>> 0
-                : ~~+Math.ceil(
+              +Math.abs(tempDouble) >= 1
+                ? tempDouble > 0
+                  ? +Math.floor(tempDouble / 4294967296) >>> 0
+                  : ~~+Math.ceil(
                     (tempDouble - +(~~tempDouble >>> 0)) / 4294967296,
                   ) >>> 0
-              : 0),
+                : 0),
           ]),
             (GROWABLE_HEAP_I32()[((dirp + pos) >>> 2) >>> 0] = tempI64[0]),
             (GROWABLE_HEAP_I32()[((dirp + pos + 4) >>> 2) >>> 0] = tempI64[1]);
           (tempI64 = [
             ((idx + 1) * struct_size) >>> 0,
             ((tempDouble = (idx + 1) * struct_size),
-            +Math.abs(tempDouble) >= 1
-              ? tempDouble > 0
-                ? +Math.floor(tempDouble / 4294967296) >>> 0
-                : ~~+Math.ceil(
+              +Math.abs(tempDouble) >= 1
+                ? tempDouble > 0
+                  ? +Math.floor(tempDouble / 4294967296) >>> 0
+                  : ~~+Math.ceil(
                     (tempDouble - +(~~tempDouble >>> 0)) / 4294967296,
                   ) >>> 0
-              : 0),
+                : 0),
           ]),
             (GROWABLE_HEAP_I32()[((dirp + pos + 8) >>> 2) >>> 0] = tempI64[0]),
             (GROWABLE_HEAP_I32()[((dirp + pos + 12) >>> 2) >>> 0] = tempI64[1]);
@@ -6175,39 +6182,39 @@ var getUsdModule = ((args) => {
         case 1:
           return signed
             ? function (pointer) {
-                return this["fromWireType"](
-                  GROWABLE_HEAP_I8()[(pointer >>> 0) >>> 0],
-                );
-              }
+              return this["fromWireType"](
+                GROWABLE_HEAP_I8()[(pointer >>> 0) >>> 0],
+              );
+            }
             : function (pointer) {
-                return this["fromWireType"](
-                  GROWABLE_HEAP_U8()[(pointer >>> 0) >>> 0],
-                );
-              };
+              return this["fromWireType"](
+                GROWABLE_HEAP_U8()[(pointer >>> 0) >>> 0],
+              );
+            };
         case 2:
           return signed
             ? function (pointer) {
-                return this["fromWireType"](
-                  GROWABLE_HEAP_I16()[(pointer >>> 1) >>> 0],
-                );
-              }
+              return this["fromWireType"](
+                GROWABLE_HEAP_I16()[(pointer >>> 1) >>> 0],
+              );
+            }
             : function (pointer) {
-                return this["fromWireType"](
-                  GROWABLE_HEAP_U16()[(pointer >>> 1) >>> 0],
-                );
-              };
+              return this["fromWireType"](
+                GROWABLE_HEAP_U16()[(pointer >>> 1) >>> 0],
+              );
+            };
         case 4:
           return signed
             ? function (pointer) {
-                return this["fromWireType"](
-                  GROWABLE_HEAP_I32()[(pointer >>> 2) >>> 0],
-                );
-              }
+              return this["fromWireType"](
+                GROWABLE_HEAP_I32()[(pointer >>> 2) >>> 0],
+              );
+            }
             : function (pointer) {
-                return this["fromWireType"](
-                  GROWABLE_HEAP_U32()[(pointer >>> 2) >>> 0],
-                );
-              };
+              return this["fromWireType"](
+                GROWABLE_HEAP_U32()[(pointer >>> 2) >>> 0],
+              );
+            };
         default:
           throw new TypeError(`invalid integer width (${width}): ${name}`);
       }
@@ -7332,26 +7339,26 @@ var getUsdModule = ((args) => {
         (tempI64 = [
           rightsBase >>> 0,
           ((tempDouble = rightsBase),
-          +Math.abs(tempDouble) >= 1
-            ? tempDouble > 0
-              ? +Math.floor(tempDouble / 4294967296) >>> 0
-              : ~~+Math.ceil(
+            +Math.abs(tempDouble) >= 1
+              ? tempDouble > 0
+                ? +Math.floor(tempDouble / 4294967296) >>> 0
+                : ~~+Math.ceil(
                   (tempDouble - +(~~tempDouble >>> 0)) / 4294967296,
                 ) >>> 0
-            : 0),
+              : 0),
         ]),
           (GROWABLE_HEAP_I32()[((pbuf + 8) >>> 2) >>> 0] = tempI64[0]),
           (GROWABLE_HEAP_I32()[((pbuf + 12) >>> 2) >>> 0] = tempI64[1]);
         (tempI64 = [
           rightsInheriting >>> 0,
           ((tempDouble = rightsInheriting),
-          +Math.abs(tempDouble) >= 1
-            ? tempDouble > 0
-              ? +Math.floor(tempDouble / 4294967296) >>> 0
-              : ~~+Math.ceil(
+            +Math.abs(tempDouble) >= 1
+              ? tempDouble > 0
+                ? +Math.floor(tempDouble / 4294967296) >>> 0
+                : ~~+Math.ceil(
                   (tempDouble - +(~~tempDouble >>> 0)) / 4294967296,
                 ) >>> 0
-            : 0),
+              : 0),
         ]),
           (GROWABLE_HEAP_I32()[((pbuf + 16) >>> 2) >>> 0] = tempI64[0]),
           (GROWABLE_HEAP_I32()[((pbuf + 20) >>> 2) >>> 0] = tempI64[1]);
@@ -7482,13 +7489,13 @@ var getUsdModule = ((args) => {
         (tempI64 = [
           stream.position >>> 0,
           ((tempDouble = stream.position),
-          +Math.abs(tempDouble) >= 1
-            ? tempDouble > 0
-              ? +Math.floor(tempDouble / 4294967296) >>> 0
-              : ~~+Math.ceil(
+            +Math.abs(tempDouble) >= 1
+              ? tempDouble > 0
+                ? +Math.floor(tempDouble / 4294967296) >>> 0
+                : ~~+Math.ceil(
                   (tempDouble - +(~~tempDouble >>> 0)) / 4294967296,
                 ) >>> 0
-            : 0),
+              : 0),
         ]),
           (GROWABLE_HEAP_I32()[(newOffset >>> 2) >>> 0] = tempI64[0]),
           (GROWABLE_HEAP_I32()[((newOffset + 4) >>> 2) >>> 0] = tempI64[1]);
@@ -7715,12 +7722,12 @@ var getUsdModule = ((args) => {
         "%j": (date) =>
           leadingNulls(
             date.tm_mday +
-              arraySum(
-                isLeapYear(date.tm_year + 1900)
-                  ? MONTH_DAYS_LEAP
-                  : MONTH_DAYS_REGULAR,
-                date.tm_mon - 1,
-              ),
+            arraySum(
+              isLeapYear(date.tm_year + 1900)
+                ? MONTH_DAYS_LEAP
+                : MONTH_DAYS_REGULAR,
+              date.tm_mon - 1,
+            ),
             3,
           ),
         "%m": (date) => leadingNulls(date.tm_mon + 1, 2),
@@ -8875,20 +8882,20 @@ var getUsdModule = ((args) => {
     ) =>
       (dynCall_iiiifffffiiff = Module["dynCall_iiiifffffiiff"] =
         wasmExports["kf"])(
-        a0,
-        a1,
-        a2,
-        a3,
-        a4,
-        a5,
-        a6,
-        a7,
-        a8,
-        a9,
-        a10,
-        a11,
-        a12,
-      ));
+          a0,
+          a1,
+          a2,
+          a3,
+          a4,
+          a5,
+          a6,
+          a7,
+          a8,
+          a9,
+          a10,
+          a11,
+          a12,
+        ));
     var dynCall_jif = (Module["dynCall_jif"] = (a0, a1, a2) =>
       (dynCall_jif = Module["dynCall_jif"] = wasmExports["lf"])(a0, a1, a2));
     var dynCall_vifii = (Module["dynCall_vifii"] = (a0, a1, a2, a3, a4) =>
@@ -8970,27 +8977,27 @@ var getUsdModule = ((args) => {
       ) =>
         (dynCall_iiiiiiiiiiiiiiiiiiii = Module["dynCall_iiiiiiiiiiiiiiiiiiii"] =
           wasmExports["rf"])(
-          a0,
-          a1,
-          a2,
-          a3,
-          a4,
-          a5,
-          a6,
-          a7,
-          a8,
-          a9,
-          a10,
-          a11,
-          a12,
-          a13,
-          a14,
-          a15,
-          a16,
-          a17,
-          a18,
-          a19,
-        ));
+            a0,
+            a1,
+            a2,
+            a3,
+            a4,
+            a5,
+            a6,
+            a7,
+            a8,
+            a9,
+            a10,
+            a11,
+            a12,
+            a13,
+            a14,
+            a15,
+            a16,
+            a17,
+            a18,
+            a19,
+          ));
     var dynCall_viiiiiiiiii = (Module["dynCall_viiiiiiiiii"] = (
       a0,
       a1,
@@ -9058,20 +9065,20 @@ var getUsdModule = ((args) => {
     ) =>
       (dynCall_iiiiiiiiiiiii = Module["dynCall_iiiiiiiiiiiii"] =
         wasmExports["uf"])(
-        a0,
-        a1,
-        a2,
-        a3,
-        a4,
-        a5,
-        a6,
-        a7,
-        a8,
-        a9,
-        a10,
-        a11,
-        a12,
-      ));
+          a0,
+          a1,
+          a2,
+          a3,
+          a4,
+          a5,
+          a6,
+          a7,
+          a8,
+          a9,
+          a10,
+          a11,
+          a12,
+        ));
     var dynCall_ff = (Module["dynCall_ff"] = (a0, a1) =>
       (dynCall_ff = Module["dynCall_ff"] = wasmExports["vf"])(a0, a1));
     var dynCall_fff = (Module["dynCall_fff"] = (a0, a1, a2) =>
@@ -9133,21 +9140,21 @@ var getUsdModule = ((args) => {
     ) =>
       (dynCall_iiiiiiiiiiiiii = Module["dynCall_iiiiiiiiiiiiii"] =
         wasmExports["Bf"])(
-        a0,
-        a1,
-        a2,
-        a3,
-        a4,
-        a5,
-        a6,
-        a7,
-        a8,
-        a9,
-        a10,
-        a11,
-        a12,
-        a13,
-      ));
+          a0,
+          a1,
+          a2,
+          a3,
+          a4,
+          a5,
+          a6,
+          a7,
+          a8,
+          a9,
+          a10,
+          a11,
+          a12,
+          a13,
+        ));
     var dynCall_iiddddddiiii = (Module["dynCall_iiddddddiiii"] = (
       a0,
       a1,
@@ -9338,23 +9345,23 @@ var getUsdModule = ((args) => {
     ) =>
       (dynCall_iiidiiidiiiidiif = Module["dynCall_iiidiiidiiiidiif"] =
         wasmExports["Pf"])(
-        a0,
-        a1,
-        a2,
-        a3,
-        a4,
-        a5,
-        a6,
-        a7,
-        a8,
-        a9,
-        a10,
-        a11,
-        a12,
-        a13,
-        a14,
-        a15,
-      ));
+          a0,
+          a1,
+          a2,
+          a3,
+          a4,
+          a5,
+          a6,
+          a7,
+          a8,
+          a9,
+          a10,
+          a11,
+          a12,
+          a13,
+          a14,
+          a15,
+        ));
     var dynCall_dddd = (Module["dynCall_dddd"] = (a0, a1, a2, a3) =>
       (dynCall_dddd = Module["dynCall_dddd"] = wasmExports["Qf"])(
         a0,
@@ -9826,21 +9833,21 @@ var getUsdModule = ((args) => {
     ) =>
       (dynCall_viiiiiiiiiiiii = Module["dynCall_viiiiiiiiiiiii"] =
         wasmExports["Ag"])(
-        a0,
-        a1,
-        a2,
-        a3,
-        a4,
-        a5,
-        a6,
-        a7,
-        a8,
-        a9,
-        a10,
-        a11,
-        a12,
-        a13,
-      ));
+          a0,
+          a1,
+          a2,
+          a3,
+          a4,
+          a5,
+          a6,
+          a7,
+          a8,
+          a9,
+          a10,
+          a11,
+          a12,
+          a13,
+        ));
     var dynCall_iiiiiiiiiii = (Module["dynCall_iiiiiiiiiii"] = (
       a0,
       a1,
@@ -10092,23 +10099,23 @@ var getUsdModule = ((args) => {
     ) =>
       (dynCall_viiiiiiiiiiiiiii = Module["dynCall_viiiiiiiiiiiiiii"] =
         wasmExports["Pg"])(
-        a0,
-        a1,
-        a2,
-        a3,
-        a4,
-        a5,
-        a6,
-        a7,
-        a8,
-        a9,
-        a10,
-        a11,
-        a12,
-        a13,
-        a14,
-        a15,
-      ));
+          a0,
+          a1,
+          a2,
+          a3,
+          a4,
+          a5,
+          a6,
+          a7,
+          a8,
+          a9,
+          a10,
+          a11,
+          a12,
+          a13,
+          a14,
+          a15,
+        ));
     var dynCall_iiiiijj = (Module["dynCall_iiiiijj"] = (
       a0,
       a1,

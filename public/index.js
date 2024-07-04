@@ -22,6 +22,8 @@ let params = (new URL(document.location)).searchParams;
 let name = params.get("name");
 
 let filename = params.get("file") || ""; // || 'https://cdn.glitch.global/bee386a1-31e6-4710-8850-a1d5b7026a09/speeder.usdz'; // default file
+filename = filename.split('?')[0];
+console.log("global filename", filename);
 let messageLog = document.querySelector("#message-log");
 let currentDisplayFilename = "";
 
@@ -85,7 +87,13 @@ try {
       messageLog.textContent = "Loading File " + filename;
 
       clearStage();
-      const urlPath = (new URL(document.location)).searchParams.get("file").split('?')[0];
+
+      let urlPath = document.location.search.split("?file=")[1];
+      urlPath = decodeURIComponent(urlPath);
+      // const urlPath = (new URL(document.location)).searchParams.get("file").split('?')[0];
+
+      console.log("urlPath", urlPath);
+      console.log("filename", filename);
       loadUsdFile(undefined, filename, urlPath, true);
     }
   });
