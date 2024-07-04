@@ -166,7 +166,7 @@ NOTE: Origins for these instructions can be found [here](https://github.com/auto
             right after 
             - `Module["PThread"] = PThread;`
 7. Run `npm start`
-8. Go to http://localhost:3003 (or wherever the app is running)
+8. Go to http://localhost:3000 (or wherever the app is running)
 9. Open up Chrome Dev Tools
 10. Go to Sources -> (vertical ellipsis) -> Group by Authored/Deployed
 11. Under Authored, you can go through to the pxr files to set breakpoints in the c++ code.
