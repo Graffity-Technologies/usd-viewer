@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Blob URL Example</title>
+</head>
+
+<body>
+    <h1>Fetch Blob URL Example</h1>
+    <button id="fetchButton">Fetch and Save File</button>
+    <button id="fetchBlobButton" disabled>Fetch from Blob URL</button>
+    <p id="filePath"></p>
+
+    <script>
+        let blobUrl;
+
+        document.getElementById('fetchButton').addEventListener('click', fetchFile);
+        document.getElementById('fetchBlobButton').addEventListener('click', fetchFromBlobUrl);
+
+        async function fetchFile() {
+            const url = 'https://graffity-console-ap-southeast-1.s3.ap-southeast-1.amazonaws.com/ar_contents/prod/630ed0826d28aa4973c35256/b0d4ca35-3ff4-4cf1-b036-a6a28b61ba8a.usdz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXLNL2BAYGHFPWVPY%2F20240704%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240704T100743Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&x-id=GetObject&X-Amz-Signature=26f594ad62c9d146ce4f0e8159bd56e9d61c7727c0600cdbe30269a94bcf1d9c';
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const blob = await response.blob();
+                // Create a temporary URL pointing to the file blob
+                blobUrl = URL.createObjectURL(blob);
+                console.log('File fetched successfully:', blobUrl);
+
+                // Enable the second button
+                document.getElementById('fetchBlobButton').disabled = false;
+
+                // Display the temporary URL in the paragraph
+                document.getElementById('filePath').textContent = `Temporary file URL: ${blobUrl}`;
+
+            } catch (error) {
+                console.error('Error fetching the file:', error);
+            }
+        }
+
+        async function fetchFromBlobUrl() {
+            try {
+                const response = await fetch(blobUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const blob = await response.blob();
+                console.log('Blob URL fetched successfully:', blob);
+
+                // You can now handle the blob as needed
+                // For example, create another object URL or process the blob data
+
+            } catch (error) {
+                console.error('Error fetching from Blob URL:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>

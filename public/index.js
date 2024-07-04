@@ -22,8 +22,6 @@ let params = (new URL(document.location)).searchParams;
 let name = params.get("name");
 
 let filename = params.get("file") || ""; // || 'https://cdn.glitch.global/bee386a1-31e6-4710-8850-a1d5b7026a09/speeder.usdz'; // default file
-filename = filename.split('?')[0];
-console.log("global filename", filename);
 let messageLog = document.querySelector("#message-log");
 let currentDisplayFilename = "";
 
@@ -43,27 +41,27 @@ if (filename) {
   
 function updateUrl() {
 
-  // Workaround for CORS issues: 
-  // rewrite GitHub links in the form https://github.com/usd-wg/assets/blob/main/full_assets/ElephantWithMonochord/SoC-ElephantWithMonochord.usdc
-  // to the raw version https://raw.githubusercontent.com/usd-wg/assets/main/full_assets/ElephantWithMonochord/SoC-ElephantWithMonochord.usdc
-  if (filename.includes("github.com")) {
-    filename = filename.replace("github.com", "raw.githubusercontent.com");
-    filename = filename.replace("/blob/", "/");
-  }
+  // // Workaround for CORS issues: 
+  // // rewrite GitHub links in the form https://github.com/usd-wg/assets/blob/main/full_assets/ElephantWithMonochord/SoC-ElephantWithMonochord.usdc
+  // // to the raw version https://raw.githubusercontent.com/usd-wg/assets/main/full_assets/ElephantWithMonochord/SoC-ElephantWithMonochord.usdc
+  // if (filename.includes("github.com")) {
+  //   filename = filename.replace("github.com", "raw.githubusercontent.com");
+  //   filename = filename.replace("/blob/", "/");
+  // }
   
-  // set quick look link
-  let indexOfQuery = filename.indexOf('?');
-  let url = filename;
-  if (indexOfQuery >= 0)
-    url = url.substring(0, indexOfQuery);
+  // // set quick look link
+  // let indexOfQuery = filename.indexOf('?');
+  // let url = filename;
+  // if (indexOfQuery >= 0)
+  //   url = url.substring(0, indexOfQuery);
 
-  const quickLookLink = document.querySelector("a#quick-look-link");
-  if (quickLookLink) quickLookLink.href = url;
+  // const quickLookLink = document.querySelector("a#quick-look-link");
+  // if (quickLookLink) quickLookLink.href = url;
   
-  const currentUrl = new URL(window.location.href);
-  // set the file query parameter
-  currentUrl.searchParams.set("file", filename);
-  window.history.pushState({}, filename, currentUrl);
+  // const currentUrl = new URL(window.location.href);
+  // // set the file query parameter
+  // currentUrl.searchParams.set("file", filename);
+  // window.history.pushState({}, filename, currentUrl);
 }
 
 messageLog.textContent = "Initializing...";
@@ -90,11 +88,23 @@ try {
 
       let urlPath = document.location.search.split("?file=")[1];
       urlPath = decodeURIComponent(urlPath);
+      filename = filename.split('?')[0];
       // const urlPath = (new URL(document.location)).searchParams.get("file").split('?')[0];
 
       console.log("urlPath", urlPath);
       console.log("filename", filename);
-      loadUsdFile(undefined, filename, urlPath, true);
+
+      const response = await fetch(urlPath);
+      if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const blob = await response.blob();
+      // Create a temporary URL pointing to the file blob
+      let blobUrl = URL.createObjectURL(blob);
+      blobUrl += ".usdz"
+      console.log('File fetched successfully:', blobUrl);
+
+      loadUsdFile(undefined, filename, blobUrl, true);
     }
   });
 }

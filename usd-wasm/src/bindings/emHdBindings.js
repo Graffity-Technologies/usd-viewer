@@ -1031,13 +1031,15 @@ var getUsdModule = ((args) => {
     var tempI64;
     function __asyncjs__fetch_asset(route, dataPtr) {
       return Asyncify.handleAsync(async () => {
-        const routeString = UTF8ToString(route);
+        let routeString = UTF8ToString(route);
+        routeString = routeString.replace('http:/', 'http://');
+        routeString = routeString.replace('.usdz', '');
         console.log("routeString", routeString);
 
         const absoluteUrl = new URL(routeString);
         console.log("absoluteUrl", absoluteUrl);
         try {
-          const response = await fetch(absoluteUrl);
+          const response = await fetch(routeString); // absoluteUrl
           if (!response.ok)
             throw new Error("Fetch failed: " + response.statusText);
           const buffer = await response.arrayBuffer();
