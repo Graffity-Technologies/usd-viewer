@@ -322,7 +322,7 @@ var getUsdModule = ((args) => {
               this.requests[name] = this;
               Module["addRunDependency"](`fp ${this.name}`);
             },
-            send: function () {},
+            send: function () { },
             onload: function () {
               var byteArray = this.byteArray.subarray(this.start, this.end);
               this.finish(byteArray);
@@ -1033,6 +1033,7 @@ var getUsdModule = ((args) => {
       return Asyncify.handleAsync(async () => {
         let routeString = UTF8ToString(route);
         routeString = routeString.replace('http:/', 'http://');
+        routeString = routeString.replace('https:/', 'https://');
         routeString = routeString.replace('.usdz', '');
         console.log("routeString", routeString);
 
@@ -1222,7 +1223,7 @@ var getUsdModule = ((args) => {
           }
           var randomBytes = crypto_module["randomBytes"];
           return (view) => (view.set(randomBytes(view.byteLength)), view);
-        } catch (e) {}
+        } catch (e) { }
       }
       abort("initRandomDevice");
     };
@@ -1427,8 +1428,8 @@ var getUsdModule = ((args) => {
     };
     var TTY = {
       ttys: [],
-      init() {},
-      shutdown() {},
+      init() { },
+      shutdown() { },
       register(dev, ops) {
         TTY.ttys[dev] = { input: [], output: [], ops: ops };
         FS.registerDevice(dev, TTY.stream_ops);
@@ -1717,7 +1718,7 @@ var getUsdModule = ((args) => {
             var new_node;
             try {
               new_node = FS.lookupNode(new_dir, new_name);
-            } catch (e) {}
+            } catch (e) { }
             if (new_node) {
               for (var i in new_node.contents) {
                 throw new FS.ErrnoError(55);
@@ -2159,7 +2160,7 @@ var getUsdModule = ((args) => {
         try {
           var node = FS.lookupNode(dir, name);
           return 20;
-        } catch (e) {}
+        } catch (e) { }
         return FS.nodePermissions(dir, "wx");
       },
       mayDelete(dir, name, isdir) {
@@ -2496,7 +2497,7 @@ var getUsdModule = ((args) => {
         var new_node;
         try {
           new_node = FS.lookupNode(new_dir, new_name);
-        } catch (e) {}
+        } catch (e) { }
         if (old_node === new_node) {
           return;
         }
@@ -2710,7 +2711,7 @@ var getUsdModule = ((args) => {
           try {
             var lookup = FS.lookupPath(path, { follow: !(flags & 131072) });
             node = lookup.node;
-          } catch (e) {}
+          } catch (e) { }
         }
         var created = false;
         if (flags & 64) {
@@ -3099,7 +3100,7 @@ var getUsdModule = ((args) => {
         try {
           var lookup = FS.lookupPath(path, { follow: !dontResolveLastLink });
           path = lookup.path;
-        } catch (e) {}
+        } catch (e) { }
         var ret = {
           isRoot: false,
           exists: false,
@@ -3137,7 +3138,7 @@ var getUsdModule = ((args) => {
           var current = PATH.join2(parent, part);
           try {
             FS.mkdir(current);
-          } catch (e) {}
+          } catch (e) { }
           parent = current;
         }
         return current;
@@ -3648,7 +3649,7 @@ var getUsdModule = ((args) => {
         worker.pthread_ptr = 0;
         __emscripten_thread_free_data(pthread_ptr);
       },
-      receiveObjectTransfer(data) {},
+      receiveObjectTransfer(data) { },
       threadInitTLS() {
         PThread.tlsInitFunctions.forEach((f) => f());
       },
@@ -4588,7 +4589,7 @@ var getUsdModule = ((args) => {
       throwBindingError(getInstanceTypeName(obj) + " instance already deleted");
     };
     var finalizationRegistry = false;
-    var detachFinalizer = (handle) => {};
+    var detachFinalizer = (handle) => { };
     var runDestructor = ($$) => {
       if ($$.smartPtr) {
         $$.smartPtrType.rawDestructor($$.smartPtr);
@@ -4842,7 +4843,7 @@ var getUsdModule = ((args) => {
         },
       });
     };
-    function ClassHandle() {}
+    function ClassHandle() { }
     var char_0 = 48;
     var char_9 = 57;
     var makeLegalFunctionName = (name) => {
@@ -5356,7 +5357,7 @@ var getUsdModule = ((args) => {
       }
       var dummy = createNamedFunction(
         constructor.name || "unknownFunctionName",
-        function () {},
+        function () { },
       );
       dummy.prototype = constructor.prototype;
       var obj = new dummy();
@@ -6226,7 +6227,7 @@ var getUsdModule = ((args) => {
       name >>>= 0;
       size >>>= 0;
       name = readLatin1String(name);
-      function ctor() {}
+      function ctor() { }
       ctor.values = {};
       registerType(rawType, {
         name: name,
@@ -6262,7 +6263,7 @@ var getUsdModule = ((args) => {
         constructor: {
           value: createNamedFunction(
             `${enumType.name}_${name}`,
-            function () {},
+            function () { },
           ),
         },
       });
@@ -6395,7 +6396,7 @@ var getUsdModule = ((args) => {
         fromWireType = (value) => (value << bitshift) >>> bitshift;
       }
       var isUnsignedType = name.includes("unsigned");
-      var checkAssertions = (value, toTypeName) => {};
+      var checkAssertions = (value, toTypeName) => { };
       var toWireType;
       if (isUnsignedType) {
         toWireType = function (destructors, value) {
@@ -7187,7 +7188,7 @@ var getUsdModule = ((args) => {
         err(text);
       }
     };
-    var _emscripten_check_blocking_allowed = () => {};
+    var _emscripten_check_blocking_allowed = () => { };
     var _emscripten_date_now = () => Date.now();
     var _emscripten_exit_with_live_runtime = () => {
       runtimeKeepalivePush();
@@ -7213,7 +7214,7 @@ var getUsdModule = ((args) => {
         wasmMemory.grow(pages);
         updateMemoryViews();
         return 1;
-      } catch (e) {}
+      } catch (e) { }
     };
     function _emscripten_resize_heap(requestedSize) {
       requestedSize >>>= 0;
@@ -7533,7 +7534,7 @@ var getUsdModule = ((args) => {
       year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
     var arraySum = (array, index) => {
       var sum = 0;
-      for (var i = 0; i <= index; sum += array[i++]) {}
+      for (var i = 0; i <= index; sum += array[i++]) { }
       return sum;
     };
     var MONTH_DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -11968,8 +11969,8 @@ var getUsdModule = ((args) => {
     Module["FS_createDataFile"] = FS.createDataFile;
     Module["FS_unlink"] = FS.unlink;
     Module["PThread"] = PThread;
-    Module["FS_readdir"]=FS.readdir;
-    Module["FS_analyzePath"]=FS.analyzePath;
+    Module["FS_readdir"] = FS.readdir;
+    Module["FS_analyzePath"] = FS.analyzePath;
     var calledRun;
     dependenciesFulfilled = function runCaller() {
       if (!calledRun) run();
