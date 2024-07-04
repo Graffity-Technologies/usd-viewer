@@ -1,5 +1,5 @@
 const fastify = require('fastify')()
-const path = require('path') 
+const path = require('path')
 
 // Headers are required for SharedArrayBuffers and WebAssembly
 // Otherwise we wouldn't need a server at all.
@@ -27,10 +27,10 @@ fastify.register(require('@fastify/static'), {
   decorateReply: false,
 })
 
-fastify.listen({port: process.env.PORT || 3003}, function(err, address) {
+fastify.listen({ port: process.env.PORT || 3000 }, function (err, address) {
   if (err) {
     fastify.log.error(err);
-    console.error("Error starting server on port 3003", err);
+    console.error("Error starting server on port 3000", err);
     process.exit(1);
   }
   console.log(`Your app is listening on ${address}`);
