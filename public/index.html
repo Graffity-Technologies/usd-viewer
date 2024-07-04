@@ -52,17 +52,27 @@
   </div>
   <div class="footer">
     <div id="qr-code-container">
-      <div id="qr-code"></div>
       <h4>Preview with iPhone or iPad</h4>
-      <p>Scan QR then click this icon below in Safari</p>
-      <img width="120" height="120" src="ARKit_Glyph.svg" title="ARKit Glyph" style="max-width:100%; height:auto;">
+      <div id="qr-code"></div>
+      <br />
+      <div id="countdown"></div>
+      <div id="preview-desc">
+        <p>Scan QR then click this icon below in Safari</p>
+        <img width="120" height="120" src="ARKit_Glyph.svg" title="ARKit Glyph" style="max-width:100%; height:auto;">
+      </div>
     </div>
   </div>
 
   <script>
     // Extract the URL after the "?file=" parameter
     const fileUrl = decodeURIComponent(document.location.search.split("?file=")[1]);
-    console.log("fileUrl", fileUrl);
+    const urlParams = new URLSearchParams(new URL(fileUrl).search);
+    const expiresInSeconds = parseInt(urlParams.get('X-Amz-Expires'), 10);
+
+    // Calculate the expiration timestamp
+    const currentTime = Math.floor(Date.now() / 1000);
+    const expirationTimestamp = currentTime + expiresInSeconds;
+
     // Create QR Code
     const qrCode = new QRCodeStyling({
       width: 300,
@@ -79,6 +89,26 @@
     });
 
     qrCode.append(document.getElementById("qr-code"));
+
+    // Function to update the countdown timer
+    function updateCountdown() {
+      const now = Math.floor(Date.now() / 1000);
+      const remainingTime = expirationTimestamp - now;
+
+      if (remainingTime <= 0) {
+        document.getElementById('countdown').textContent = "Expired! Please click preview from Graffity Console again.";
+        document.getElementById('qr-code').style.display = 'none';
+        document.getElementById('preview-desc').style.display = 'none';
+      } else {
+        const minutes = Math.floor(remainingTime / 60);
+        const seconds = remainingTime % 60;
+        document.getElementById('countdown').textContent = `This preview will expire in ${minutes}m ${seconds}s`;
+      }
+    }
+
+    // Update the countdown every second
+    setInterval(updateCountdown, 1000);
+
   </script>
 </body>
 
