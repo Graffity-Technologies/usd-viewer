@@ -52,7 +52,8 @@
   </div>
   <div class="footer">
     <div id="qr-code-container">
-      <h4>Preview with iPhone or iPad</h4>
+      <h4>Animation may not play correctly on web</h4>
+      <h5>Preview with <span style="color: crimson;">iPhone or iPad</span> to guarantee model display correctly</h5>
       <div id="qr-code"></div>
       <br />
       <div id="countdown"></div>
@@ -68,6 +69,7 @@
     const fileUrl = decodeURIComponent(document.location.search.split("?file=")[1]);
     const urlParams = new URLSearchParams(new URL(fileUrl).search);
     const expiresInSeconds = parseInt(urlParams.get('X-Amz-Expires'), 10);
+    console.log("expiresInSeconds", expiresInSeconds);
 
     // Calculate the expiration timestamp
     const currentTime = Math.floor(Date.now() / 1000);
@@ -107,7 +109,9 @@
     }
 
     // Update the countdown every second
-    setInterval(updateCountdown, 1000);
+    if (expiresInSeconds || isNaN(expiresInSeconds)) {
+      setInterval(updateCountdown, 1000);
+    }
 
   </script>
 </body>
