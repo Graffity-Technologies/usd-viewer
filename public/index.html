@@ -68,7 +68,15 @@
     // Extract the URL after the "?file=" parameter
     const fileUrl = decodeURIComponent(document.location.search.split("?file=")[1]);
     const urlParams = new URLSearchParams(new URL(fileUrl).search);
-    const expiresInSeconds = parseInt(urlParams.get('X-Amz-Expires'), 10);
+    let expiresInSeconds = parseInt(urlParams.get('X-Amz-Expires'), 10);
+    if (isNaN(expiresInSeconds)) {
+      let expires = urlParams.get('Expires');
+      expires = parseInt(expires, 10);
+      let currentTimestamp = Math.floor(Date.now() / 1000);
+      if (expires) {
+        expiresInSeconds = expires - currentTimestamp;
+      }
+    }
     console.log("expiresInSeconds", expiresInSeconds);
 
     // Calculate the expiration timestamp
