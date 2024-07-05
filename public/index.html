@@ -109,7 +109,7 @@
     }
 
     // Update the countdown every second
-    if (expiresInSeconds || isNaN(expiresInSeconds)) {
+    if (expiresInSeconds || !isNaN(expiresInSeconds)) {
       setInterval(updateCountdown, 1000);
     }
 
